@@ -1,4 +1,4 @@
-# FTC Code Standard References
+# FTC Code Standard Reference
 *This repositiory servers as a reference guide for standards that certain classes should/can follow*
 
 ## Overview
