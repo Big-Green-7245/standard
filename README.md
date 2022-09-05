@@ -34,7 +34,7 @@ cd FtcRobotController/
 sudo rm -r .git
 cd TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
 rm *
-git clone https://github.com/your/repository.git .
+git clone https://github.com/your/repository.git teamcode
 ```
 
 The Android Studio project should looks something like this:
