@@ -28,7 +28,7 @@ public class DriveTrain implements Modulable
 
         backLeft = hwMap.get(DcMotor.class, "leftBack");
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
 
         backRight = hwMap.get(DcMotor.class, "rightBack");
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -36,11 +36,11 @@ public class DriveTrain implements Modulable
 
         frontLeft = hwMap.get(DcMotor.class, "leftFront");
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
 
         frontRight = hwMap.get(DcMotor.class, "rightFront");
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
 
         setModeToAllDriveMotors(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setModeToAllDriveMotors(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -51,10 +51,10 @@ public class DriveTrain implements Modulable
         double speedy = factor * powery;
         double offset = factor * turn;
 
-        frontLeft.setPower(Range.clip(speedy-speedx-offset,-1,1));
-        frontRight.setPower(Range.clip(speedy+speedx+offset,-1,1));
-        backLeft.setPower(Range.clip(speedy+speedx-offset,-1,1));
-        backRight.setPower(Range.clip(speedy-speedx+offset,-1,1));
+        frontLeft.setPower(Range.clip(speedy+speedx+offset,-1,1));
+        frontRight.setPower(Range.clip(speedy-speedx-offset,-1,1));
+        backLeft.setPower(Range.clip(speedy-speedx+offset,-1,1));
+        backRight.setPower(Range.clip(speedy+speedx-offset,-1,1));
     }
 
     public void translate(double power, double dX, double dY, double dTheta, double timeout)
@@ -63,10 +63,10 @@ public class DriveTrain implements Modulable
         int dFL, dFR, dBL, dBR;
 
         // Determine new target position, and pass to motor controller
-        dFL = (int)((-dY -dX * XY_CORRECTION) * COUNTS_PER_INCH + dTheta * COUNTS_PER_DEGREE);
-        dFR = (int)((-dY +dX * XY_CORRECTION) * COUNTS_PER_INCH - dTheta * COUNTS_PER_DEGREE);
-        dBL = (int)((-dY +dX * XY_CORRECTION) * COUNTS_PER_INCH + dTheta * COUNTS_PER_DEGREE);
-        dBR = (int)((-dY -dX * XY_CORRECTION) * COUNTS_PER_INCH - dTheta * COUNTS_PER_DEGREE);
+        dFL = (int)((-dY +dX * XY_CORRECTION) * COUNTS_PER_INCH - dTheta * COUNTS_PER_DEGREE);
+        dFR = (int)((-dY -dX * XY_CORRECTION) * COUNTS_PER_INCH + dTheta * COUNTS_PER_DEGREE);
+        dBL = (int)((-dY -dX * XY_CORRECTION) * COUNTS_PER_INCH - dTheta * COUNTS_PER_DEGREE);
+        dBR = (int)((-dY +dX * XY_CORRECTION) * COUNTS_PER_INCH + dTheta * COUNTS_PER_DEGREE);
 
         setModeToAllDriveMotors(DcMotor.RunMode.RUN_USING_ENCODER);
         setModeToAllDriveMotors(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
